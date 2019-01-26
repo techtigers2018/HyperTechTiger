@@ -72,7 +72,7 @@ public class Drive extends Subsystem {
         addChild("leftMotors",leftMotors);
         
         
-        diffDrive = new DifferentialDrive(rightMotors, rightFront);
+        diffDrive = new DifferentialDrive(leftMotors, rightMotors);
         addChild("diffDrive",diffDrive);
         diffDrive.setSafetyEnabled(true);
         diffDrive.setExpiration(0.1);
@@ -107,6 +107,8 @@ public class Drive extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    public void command1(){}
+    public void command1(){
+        //diffDrive.tankDrive(leftSpeed, rightSpeed);
+    }
 }
 

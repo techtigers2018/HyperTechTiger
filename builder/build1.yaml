@@ -129,7 +129,7 @@ Children:
           name: Right Motor
           type: PIDOutput
           validators: [RobotDrive2, ChildDropdownSelected]
-          value: rightFront
+          value: rightMotors
         Maximum Output: !!robotbuilder.data.properties.DoubleProperty {default: 1,
           name: Maximum Output, validators: null, value: 1.0}
         Left Motor: !!robotbuilder.data.properties.ChildSelectionProperty
@@ -137,7 +137,7 @@ Children:
           name: Left Motor
           type: PIDOutput
           validators: [RobotDrive2, ChildDropdownSelected]
-          value: rightMotors
+          value: leftMotors
         Safety Expiration Time: !!robotbuilder.data.properties.DoubleProperty {default: 0.1,
           name: Safety Expiration Time, validators: null, value: 0.1}
         Safety Enabled: !!robotbuilder.data.properties.BooleanProperty {default: true,
@@ -161,10 +161,98 @@ Children:
         value: []
     Base: Subsystem
     Name: Drive
+  - Children:
+    - Children: []
+      Properties:
+        Type: !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id001
+          default: Spark
+          name: Type
+          validators: null
+          value: Spark
+        Output Channel (PWM): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id002
+          default: '0'
+          name: Output Channel (PWM)
+          validators: *id003
+          value: '4'
+        Inverted: !!robotbuilder.data.properties.BooleanProperty {default: false,
+          name: Inverted, validators: null, value: false}
+      Base: Speed Controller
+      Name: grabber motor
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: &id006 ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+            '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22',
+            '23', '24', '25']
+          default: '0'
+          name: Input Channel (Digital)
+          validators: &id007 [DigitalChannel]
+          value: '0'
+      Base: Limit Switch
+      Name: limit_top_1
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id006
+          default: '0'
+          name: Input Channel (Digital)
+          validators: *id007
+          value: '1'
+      Base: Limit Switch
+      Name: limit_top_2
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id006
+          default: '0'
+          name: Input Channel (Digital)
+          validators: *id007
+          value: '2'
+      Base: Limit Switch
+      Name: limit_bot_1
+    - Children: []
+      Properties:
+        Input Channel (Digital): !!robotbuilder.data.properties.ChoicesProperty
+          choices: *id006
+          default: '0'
+          name: Input Channel (Digital)
+          validators: *id007
+          value: '3'
+      Base: Limit Switch
+      Name: limit_bot_2
+    Properties:
+      Send to SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Send to SmartDashboard, validators: null, value: true}
+      Default command parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Default command parameters
+        validators: null
+        value: []
+      Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Default Command, type: Command, validators: null, value: None}
+      Constants: !!robotbuilder.data.properties.ConstantsProperty
+        default: []
+        name: Constants
+        validators: null
+        value: []
+    Base: Subsystem
+    Name: grabber
   Properties: {}
   Base: Subsystems
   Name: Subsystems
-- Children: []
+- Children:
+  - Children: []
+    Properties:
+      Number: !!robotbuilder.data.properties.ChoicesProperty
+        choices: ['0', '1', '2', '3', '4', '5']
+        default: 1
+        name: Number
+        validators: [Joystick]
+        value: '0'
+    Base: Joystick
+    Name: js1
   Properties: {}
   Base: OI
   Name: Operator Interface
@@ -191,6 +279,50 @@ Children:
         name: Button on SmartDashboard, validators: null, value: true}
     Base: Command
     Name: Autonomous Command
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: Drive}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: []
+        name: Parameter presets
+        validators: null
+        value: []
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: Teleop
+  - Children: []
+    Properties:
+      Autonomous Selection: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Autonomous Selection, validators: null, value: false}
+      Parameters: !!robotbuilder.data.properties.ParametersProperty
+        default: []
+        name: Parameters
+        validators: null
+        value: []
+      Run When Disabled: !!robotbuilder.data.properties.BooleanProperty {default: false,
+        name: Run When Disabled, validators: null, value: false}
+      Requires: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
+        name: Requires, type: Subsystem, validators: null, value: grabber}
+      Parameter presets: !!robotbuilder.data.properties.ParameterSetProperty
+        default: &id008 []
+        name: Parameter presets
+        validators: null
+        value: *id008
+      Button on SmartDashboard: !!robotbuilder.data.properties.BooleanProperty {default: true,
+        name: Button on SmartDashboard, validators: null, value: true}
+    Base: Command
+    Name: 'grabber command '
   Properties: {}
   Base: Commands
   Name: Commands

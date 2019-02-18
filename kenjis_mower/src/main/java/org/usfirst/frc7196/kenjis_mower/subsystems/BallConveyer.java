@@ -42,7 +42,7 @@ public class BallConveyer extends Subsystem {
     private Timer timeout;
 
     public BallConveyer() {
-        conveyerMotor = new Spark(5);
+        conveyerMotor = new Spark(0);
         addChild("conveyerMotor",conveyerMotor);
         conveyerMotor.setInverted(false);
 
@@ -71,15 +71,27 @@ public class BallConveyer extends Subsystem {
     
     public void intakeBall(){
         //TODO: Determine ideal speed to run conveyer motor at
+        conveyerMotor.set(-0.5);
+        // if (ballDetector.getValue() > 3){
+        //     timeout.start();
+        //     while((ballDetector.getValue() > 3) && timeout.get() < 0.75){
+        //         //TODO: Work on robot to determine actual threshold value
+        //     }
+        //     conveyerMotor.set(0);
+        //     timeout.reset();
+        // }
+
+        // boolean ballOnSensor = ballDetector.getValue() > 3;
+        // conveyerMotor.set(0.5);
+        // if(ballOnSensor){}
+    }
+
+    public void doNotRun() {
+        conveyerMotor.set(0);
+    }
+
+    public void reverseBall(){
         conveyerMotor.set(0.5);
-        if (ballDetector.getValue() > 3){
-            timeout.start();
-            while((ballDetector.getValue() > 3) && timeout.get() < 0.75){
-                //TODO: Work on robot to determine actual threshold value
-            }
-            conveyerMotor.set(0);
-            timeout.reset();
-        }
     }
 }
 

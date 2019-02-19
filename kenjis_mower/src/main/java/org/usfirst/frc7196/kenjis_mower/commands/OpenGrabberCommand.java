@@ -47,24 +47,26 @@ public class OpenGrabberCommand extends Command {
     @Override
     protected void execute() {
 
-
+        Robot.grabber.openGrabber();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         //return Robot.grabber.getFinished();
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        Robot.grabber.stopGrab();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        Robot.grabber.stopGrab();
     }
 }

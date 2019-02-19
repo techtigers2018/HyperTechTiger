@@ -121,7 +121,7 @@ public class Drive extends Subsystem {
         int directional = 1;
         if (Robot.drive.direction != RobotDirection.FORWARD)  directional = -1;
         double avgSpeed = lowPassFilter(speed);
-        diffDrive.arcadeDrive(avgSpeed*directional, turn*directional, true);
+        diffDrive.arcadeDrive(avgSpeed*directional, turn, true);
     }
 
     //Switches the direction of the robot
@@ -137,7 +137,7 @@ public class Drive extends Subsystem {
     //Low Pass Filter for the speed
     public double lowPassFilter(double speed) {
     	double avg = 0;
-    	if(speedQueue.size() >= 6)
+    	if(speedQueue.size() >= 12)
     	{
         	 avg = averageSpeedInQueue(speedQueue);
         	 speedQueue.remove();

@@ -117,7 +117,7 @@ public class grabber extends Subsystem {
 
     public void openGrabber(){
         //if (!limit_top.get()){
-            grabbermotor.set(-0.5);
+            grabbermotor.set(-0.7);
         //}   
         //else{
             //grabbermotor.set(0);
@@ -129,7 +129,7 @@ public class grabber extends Subsystem {
     }
     public void closeGrabber(){
         //if (!limit_bot.get()){
-            grabbermotor.set(0.5);
+            grabbermotor.set(0.7);
         //}
         //else {
             //grabbermotor.set(0);

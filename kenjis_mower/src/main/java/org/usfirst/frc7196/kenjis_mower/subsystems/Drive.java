@@ -130,7 +130,7 @@ public class Drive extends Subsystem {
         int directional = 1;
         if (Robot.drive.direction != RobotDirection.FORWARD)  directional = -1;
         double avgSpeed = lowPassFilter(speed);
-        diffDrive.arcadeDrive(avgSpeed*directional, turn*.7687, true);
+        diffDrive.arcadeDrive(avgSpeed*directional, turn*.85, true);
     }
 
     //Switches the direction of the robot
